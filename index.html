@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MixWorld</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /* Importar fuente de Google Fonts */
+
         body {
             background-image: url('https://github.com/Aurinmix/MixWorld/raw/main/Fondo_logo_Aurinmix.png'); /* Fondo aplicado */
             background-size: cover;
             color: #FFFFFF;
             font-family: Arial, sans-serif;
+            text-align: center;
         }
         .header {
             text-align: center;
@@ -18,24 +21,50 @@
         .header img {
             max-width: 300px;
         }
+        .header h1 {
+            font-family: 'Roboto', sans-serif; /* Nueva fuente */
+            color: #FFD700; /* Color dorado */
+            font-size: 3em;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+        .header p {
+            font-family: 'Roboto', sans-serif; /* Usando la misma fuente */
+            color: #FFFFFF;
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
         .section {
-            margin: 20px;
+            margin: 20px auto;
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
+            max-width: 600px;
         }
         .social-buttons a {
-            color: #FFD700;
+            display: block;
+            margin: 15px auto;
+            padding: 15px;
+            width: 80%;
+            max-width: 300px;
+            background-color: #FFD700;
+            color: #000;
             text-decoration: none;
-            margin: 0 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .social-buttons a:hover {
+            background-color: #FFA500;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="https://github.com/Aurinmix/MixWorld/raw/main/Aurinmix%20logo%20sin%20fondo.png" alt="MixWorld Logo"> <!-- Logo de MixWorld -->
-        <h1>Bienvenido a MixWorld</h1>
-        <p>MixWorld es la extensión natural de L@s ARKan@s...</p>
+        <img src="https://github.com/Aurinmix/MixWorld/raw/main/Aurinmix%20logo%20sin%20fondo.png" alt="MixWorld Logo"" alt="MixWorld Logo"> <!-- Logo de MixWorld -->
+        <h1>BIENVENIDOS A MIXWORLD</h1>
+        <p>Una pequeña sección de L@s ARKan@s enfocada a una gran variedad de videojuegos.</p>
     </div>
 
     <div class="section social-buttons">
