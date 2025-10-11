@@ -4,84 +4,152 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MixWorld</title>
+
+    <!-- Iconos e importación de fuentes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap'); /* Importar fuente de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
         body {
-            background-image: url('https://github.com/Aurinmix/MixWorld/raw/main/Fondo_logo_Aurinmix.png'); /* Fondo aplicado */
-            background-size: cover;
+            margin: 0;
+            padding: 0;
             color: #FFFFFF;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             text-align: center;
+            overflow-x: hidden;
         }
+
+        /* Fondo animado */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.15), transparent 70%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.15), transparent 70%),
+                        url('https://github.com/Aurinmix/MixWorld/raw/main/Fondo_logo_Aurinmix.png') center/cover no-repeat;
+            background-blend-mode: screen;
+            z-index: -1;
+            animation: goldFog 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes goldFog {
+            0% { background-position: 20% 20%, 80% 80%, center; }
+            50% { background-position: 25% 30%, 75% 70%, center; }
+            100% { background-position: 20% 20%, 80% 80%, center; }
+        }
+
         .header {
-            text-align: center;
-            padding: 50px;
+            padding: 50px 20px;
+            animation: fadeIn 2s ease-in-out;
         }
+
         .header img {
-            max-width: 300px;
+            max-width: 280px;
+            opacity: 0;
+            animation: slideIn 1.5s ease forwards;
         }
+
+        @keyframes slideIn {
+            from { transform: translateY(-40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         .header h1 {
-            font-family: 'Lobster', cursive; /* Nueva fuente */
-            color: #FFD700; /* Color dorado */
+            font-family: 'Lobster', cursive;
+            color: #FFD700;
             font-size: 3em;
             margin-top: 20px;
-            text-shadow: 2px 2px 5px #000000; /* Sombra para hacer el texto más visible */
+            text-shadow: 2px 2px 8px #000000;
+            opacity: 0;
+            animation: fadeInText 2s 0.5s forwards;
         }
+
         .header p {
-            font-family: 'Roboto', sans-serif; /* Usando la misma fuente */
-            color: #FFD700; /* Color dorado */
-            font-size: 1.5em;
+            color: #FFD700;
+            font-size: 1.3em;
             margin-top: 10px;
-            text-shadow: 2px 2px 5px #000000; /* Sombra para hacer el texto más visible */
+            text-shadow: 1px 1px 6px #000000;
+            opacity: 0;
+            animation: fadeInText 2s 1s forwards;
         }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .section {
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 12px;
             max-width: 600px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
+
+        .section h2 {
+            color: #FFD700;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px #000000;
+        }
+
         .social-buttons a {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             margin: 15px auto;
             padding: 15px;
             width: 80%;
-            max-width: 300px;
+            max-width: 320px;
             background-color: #FFD700;
             color: #000;
             text-decoration: none;
             font-size: 1.2em;
             font-weight: bold;
             border-radius: 5px;
-            transition: background-color 0.3s;
-            text-shadow: 2px 2px 5px #000000; /* Sombra en los botones */
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            transition: all 0.3s ease;
         }
+
         .social-buttons a:hover {
             background-color: #FFA500;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 165, 0, 0.8);
+        }
+
+        .social-buttons i {
+            font-size: 1.4em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="MixWorld Logo"> <!-- Logo de MixWorld -->
+        <img src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="MixWorld Logo">
         <h1>BIENVENIDOS A MIXWORLD</h1>
         <p>Una pequeña sección de L@s ARKan@s enfocada a una gran variedad de videojuegos.</p>
     </div>
 
     <div class="section social-buttons">
         <h2>Síguenos en</h2>
-        <a href="https://youtube.com/@aurinmix?si=XBiUp1Ndm1vS163D">YouTube</a>
-        <a href="https://twitch.tv/aurinmix">Twitch</a>
-        <a href="https://x.com/Aurinmix">Twitter (X)</a>
-        <a href="https://discord.com/invite/6SqndJcd5a">Discord MixWorld</a>
-        <a href="https://discord.com/invite/5NPApJbJYu">Discord L@s ARKan@s</a>
-        <a href="https://www.facebook.com/share/g/oTF2A6GLA8fs5Bv2/">Facebook</a>
-        <a href="https://www.tiktok.com/@aurinmix">TikTok</a>
-        <a href="https://losarkanos.es">LosArkanos.es</a>
-        <a href="https://mixworld.losarkanos.es">MixWorld</a>
+        <a href="https://youtube.com/@aurinmix?si=XBiUp1Ndm1vS163D"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="https://twitch.tv/aurinmix"><i class="fab fa-twitch"></i> Twitch</a>
+        <a href="https://x.com/Aurinmix"><i class="fab fa-x-twitter"></i> Twitter (X)</a>
+        <a href="https://discord.gg/QwS5VBW8y3"><i class="fab fa-discord"></i> Discord MixWorlds</a>
+        <a href="https://www.facebook.com/share/g/oTF2A6GLA8fs5Bv2/"><i class="fab fa-facebook"></i> Facebook</a>
+        <a href="https://www.tiktok.com/@aurinmix"><i class="fab fa-tiktok"></i> TikTok</a>
+        <a href="https://mixworlds.net/"><i class="fa-solid fa-globe"></i> MixWorlds</a>
     </div>
-
-    <!-- Agrega más secciones según sea necesario -->
 </body>
 </html>
