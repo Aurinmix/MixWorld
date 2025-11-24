@@ -132,7 +132,47 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
+        }/* ===== RESPONSIVE PARA MÓVILES ===== */
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+    padding: 10px;
+  }
+  
+  .section {
+    padding: 15px;
+    margin: 10px 0;
+  }
+  
+  .section h2 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+  }
+  
+  .social-buttons a {
+    padding: 12px;
+    font-size: 1em;
+    width: 95%;
+    max-width: 100%;
+    gap: 10px;
+  }
+  
+  .social-buttons i {
+    font-size: 1.2em;
+  }
+  
+  img.logo, .logo {
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) and (min-width: 601px) {
+  .social-buttons a {
+    width: 70%;
+    max-width: 400px;
+  }
     </style>
 </head>
 <body>
