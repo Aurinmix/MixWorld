@@ -117,6 +117,30 @@
       z-index: 1;
       filter: drop-shadow(0 0 18px rgba(0,230,168,0.45));
     }
+
+    /* >>> NUEVO: logos lado a lado <<< */
+    .logos-duo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 22px;
+      margin: 0 auto 8px;
+      position: relative;
+      z-index: 2;
+      flex-wrap: wrap;
+    }
+    .logos-duo .logo{
+      width: 120px;
+      height: auto;
+      margin: 0;
+      opacity: 0;
+      animation: fadeInLogo 1.2s ease forwards;
+    }
+    @keyframes fadeInLogo{
+      from { transform: scale(0.92); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
     .title{
       font-family: Orbitron, sans-serif;
       font-size: clamp(1.6rem, 4.2vw, 2.3rem);
@@ -277,9 +301,10 @@
     /* Responsive */
     @media (max-width: 560px){
       .featured{ flex-direction:column; text-align:center; }
-      .featured .left{ text-align:center; }
+      .featured .left{ text-align: center; }
       .link{ font-size: 1rem; }
       .link .meta{ display:none; }
+      .logos-duo .logo{ width: 96px; }
     }
 
     /* Reduce motion */
@@ -288,6 +313,7 @@
       header::before{ animation:none; }
       .link, .featured .btn{ transition:none; }
       .link::after{ display:none; }
+      .logos-duo .logo{ animation:none; opacity:1; }
     }
 
   </style>
@@ -297,7 +323,11 @@
   <div class="wrap">
 
     <header>
-      <img class="logo" src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="Logo MixWorlds">
+      <!-- >>> LOGOS EN PAREJA <<< -->
+      <div class="logos-duo">
+        <img class="logo" src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="Logo Aurinmix">
+        <img class="logo" src="https://i.ibb.co/601yRJqp/mix-worlds-Logo.png" alt="Logo MixWorlds">
+      </div>
 
       <h1 class="title">MIXWORLDS</h1>
       <p class="subtitle">Comunidad gamer de supervivencia · Ark ASA y más</p>
@@ -353,7 +383,6 @@
         <span class="meta">Grupo y novedades</span>
       </a>
 
-      <!-- 🔥 ENLACE GSA ACTUALIZADO AQUÍ -->
       <a class="link" href="https://calendariomixworlds.premiumark.net/page/136000-inicio" target="_blank" rel="noopener noreferrer" aria-label="GSA Web Comunidad MixWorlds">
         <i class="fa-solid fa-globe"></i> GSA Web Comunidad MixWorlds
         <span class="meta">Portal oficial GameServerApp</span>
