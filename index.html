@@ -1,197 +1,370 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MixWorlds - Comunidad de servidores de juegos, eventos y novedades. ¡Únete a nuestra comunidad en Discord, YouTube, Twitch y más!">
-    <title>MixWorlds</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Iconos e importación de fuentes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  <title>MixWorlds | Comunidad gamer de supervivencia</title>
+  <meta name="description" content="MixWorlds es una comunidad gamer centrada en Ark Survival Ascended y juegos de supervivencia. Servidores privados, eventos frecuentes y Discord activo." />
 
-        body {
-            margin: 0;
-            padding: 0;
-            color: #FFFFFF;
-            font-family: 'Roboto', sans-serif;
-            text-align: center;
-            overflow-x: hidden;
-        }
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="MixWorlds | Comunidad gamer" />
+  <meta property="og:description" content="Servidores privados de Ark ASA, eventos frecuentes y comunidad activa de supervivencia." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Fondo_logo_Aurinmix.png" />
+  <meta property="og:url" content="https://mixworlds.net/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-        /* Fondo animado */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.15), transparent 70%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.15), transparent 70%),
-                        url('https://github.com/Aurinmix/MixWorld/raw/main/Fondo_logo_Aurinmix.png') center/cover no-repeat;
-            background-blend-mode: screen;
-            z-index: -1;
-            animation: goldFog 20s ease-in-out infinite alternate;
-        }
+  <!-- Fonts + Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-        @keyframes goldFog {
-            0% { background-position: 20% 20%, 80% 80%, center; }
-            50% { background-position: 25% 30%, 75% 70%, center; }
-            100% { background-position: 20% 20%, 80% 80%, center; }
-        }
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap');
 
-        .header {
-            padding: 50px 20px;
-            animation: fadeIn 2s ease-in-out;
-        }
+    :root{
+      --bg: #050607;
+      --panel: rgba(8, 12, 10, 0.72);
+      --panel-strong: rgba(8, 12, 10, 0.9);
+      --emerald: #00e6a8;
+      --emerald-soft: rgba(0, 230, 168, 0.20);
+      --gold: #e7c85a;
+      --gold-soft: rgba(231,200,90,0.15);
+      --text: #e9fff7;
+      --muted: #9adbc8;
+      --radius: 16px;
+    }
 
-        .header img {
-            max-width: 280px;
-            opacity: 0;
-            animation: slideIn 1.5s ease forwards;
-        }
+    * { box-sizing: border-box; }
+    body{
+      margin: 0;
+      min-height: 100vh;
+      font-family: Roboto, system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      text-align: center;
+    }
 
-        @keyframes slideIn {
-            from { transform: translateY(-40px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+    /* Fondo tech + bruma */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 15% 10%, var(--emerald-soft), transparent 60%),
+        radial-gradient(circle at 85% 85%, var(--gold-soft), transparent 60%),
+        url('https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Fondo_logo_Aurinmix.png') center/cover no-repeat;
+      background-blend-mode: screen;
+      filter: saturate(1.1) contrast(1.05);
+      animation: fogMove 22s ease-in-out infinite alternate;
+    }
+    @keyframes fogMove{
+      0%   { background-position: 15% 10%, 85% 85%, center; }
+      50%  { background-position: 22% 25%, 78% 72%, center; }
+      100% { background-position: 15% 10%, 85% 85%, center; }
+    }
 
-        .header h1 {
-            font-family: 'Lobster', cursive;
-            color: #FFD700;
-            font-size: 3em;
-            margin-top: 20px;
-            text-shadow: 2px 2px 8px #000000;
-            opacity: 0;
-            animation: fadeInText 2s 0.5s forwards;
-        }
+    /* Grid sutil tech */
+    body::after{
+      content:"";
+      position: fixed;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(transparent 95%, rgba(0, 230, 168, 0.06) 96%),
+        linear-gradient(90deg, transparent 95%, rgba(0, 230, 168, 0.06) 96%);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 65%);
+      pointer-events: none;
+    }
 
-        .header p {
-            color: #FFD700;
-            font-size: 1.3em;
-            margin-top: 10px;
-            text-shadow: 1px 1px 6px #000000;
-            opacity: 0;
-            animation: fadeInText 2s 1s forwards;
-        }
+    .wrap{
+      width: min(720px, 94vw);
+      margin: 28px auto 40px;
+      padding: 18px;
+    }
 
-        @keyframes fadeInText {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    /* Header */
+    header{
+      background: var(--panel);
+      border: 1px solid rgba(0, 230, 168, 0.25);
+      border-radius: var(--radius);
+      padding: 26px 18px 20px;
+      box-shadow:
+        0 0 0 1px rgba(231,200,90,0.12) inset,
+        0 8px 30px rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: conic-gradient(from 180deg, transparent, rgba(0,230,168,0.12), transparent 30%, rgba(231,200,90,0.08), transparent 60%);
+      animation: spin 10s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg);} }
 
-        .section {
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.75);
-            border-radius: 12px;
-            max-width: 600px;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
+    .logo{
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 10px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 18px rgba(0,230,168,0.45));
+    }
+    .title{
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(1.6rem, 4.2vw, 2.3rem);
+      letter-spacing: 1px;
+      margin: 8px 0 4px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 12px rgba(0,230,168,0.35);
+    }
+    .subtitle{
+      color: var(--muted);
+      margin: 0 auto;
+      font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+      position: relative;
+      z-index: 1;
+    }
 
-        .section h2 {
-            color: #FFD700;
-            font-size: 2em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 8px #000000;
-        }
+    /* Badge juegos */
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:8px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .chip{
+      font-size: 0.85rem;
+      padding:6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.4);
+      border:1px solid rgba(0,230,168,0.25);
+      color:#caffef;
+    }
 
-        .social-buttons a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 15px auto;
-  padding: 15px;
-  width: 80%;
-  max-width: 320px;
-  background-color: #1e90ff;         /* Azul principal */
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.2em;
-  font-weight: bold;
-  border-radius: 7px;
-  border: 2px solid #ffd700;         /* Borde dorado */
-  box-shadow: 0 0 10px rgba(30,144,255,0.30);
-  transition: all 0.3s ease;
-}
+    /* Destacado */
+    .featured{
+      margin-top: 14px;
+      padding: 12px;
+      background: var(--panel-strong);
+      border: 1px solid rgba(231,200,90,0.35);
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      position: relative;
+      z-index: 1;
+    }
+    .featured .left{
+      text-align:left;
+      line-height: 1.2;
+    }
+    .featured .left b{
+      display:block;
+      font-family: Orbitron, sans-serif;
+      color: var(--gold);
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+    .featured .left span{
+      color: #cdeee3;
+      font-size: 0.95rem;
+    }
+    .featured .btn{
+      white-space: nowrap;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration:none;
+      color:#00110c;
+      background: linear-gradient(180deg, var(--gold), #b59b2f);
+      box-shadow: 0 0 16px rgba(231,200,90,0.35);
+      transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .featured .btn:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 0 25px rgba(231,200,90,0.55);
+    }
 
-.social-buttons a:hover {
-  background-color: #8a2be2;         /* Violeta en hover */
-  color: #ffd700;                    /* Texto dorado en hover */
-  transform: scale(1.07);
-  box-shadow: 0 0 25px rgba(138,43,226,0.7);
-}
+    /* Links */
+    .links{
+      margin-top: 16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
 
-.social-buttons i {
-  font-size: 1.4em;
-        }
+    .link{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding: 14px 16px;
+      background: var(--panel);
+      border-radius: 14px;
+      border:1px solid rgba(0,230,168,0.28);
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.05rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.55);
+      transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }/* ===== RESPONSIVE PARA MÓVILES ===== */
-@media (max-width: 600px) {
-  body {
-    font-size: 15px;
-    padding: 10px;
-  }
-  
-  .section {
-    padding: 15px;
-    margin: 10px 0;
-  }
-  
-  .section h2 {
-    font-size: 1.4em;
-    margin-bottom: 15px;
-  }
-  
-  .social-buttons a {
-    padding: 12px;
-    font-size: 1em;
-    width: 95%;
-    max-width: 100%;
-    gap: 10px;
-  }
-  
-  .social-buttons i {
-    font-size: 1.2em;
-  }
-  
-  img.logo, .logo {
-    max-width: 90%;
-    height: auto;
-  }
-}
+    /* brillo holo */
+    .link::after{
+      content:"";
+      position:absolute;
+      inset:-60% -30%;
+      background: radial-gradient(circle, rgba(0,230,168,0.20), transparent 55%);
+      transform: translateX(-60%);
+      transition: transform .5s ease;
+    }
 
-/* Tablets */
-@media (max-width: 900px) and (min-width: 601px) {
-  .social-buttons a {
-    width: 70%;
-    max-width: 400px;
-  }
-    </style>
+    .link:hover{
+      transform: translateY(-2px);
+      border-color: rgba(0,230,168,0.7);
+      box-shadow: 0 10px 26px rgba(0, 230, 168, 0.18);
+    }
+    .link:hover::after{
+      transform: translateX(40%);
+    }
+
+    .link i{
+      font-size: 1.45rem;
+      width: 28px;
+      text-align:center;
+      color: var(--emerald);
+      filter: drop-shadow(0 0 8px rgba(0,230,168,0.55));
+    }
+
+    .link .meta{
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left:auto;
+      opacity: 0.9;
+    }
+
+    .link:focus-visible{
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 16px;
+      color: #bfe4d8;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* Responsive */
+    @media (max-width: 560px){
+      .featured{ flex-direction:column; text-align:center; }
+      .featured .left{ text-align:center; }
+      .link{ font-size: 1rem; }
+      .link .meta{ display:none; }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      body::before{ animation:none; }
+      header::before{ animation:none; }
+      .link, .featured .btn{ transition:none; }
+      .link::after{ display:none; }
+    }
+
+  </style>
 </head>
-<body>
-    <div class="header">
-        <img src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="MixWorld Logo">
-        <h1>BIENVENIDOS A MIXWORLDS</h1>
-        <p>Una pequeña comunidad disfrutando de los videojuegos.</p>
-    </div>
 
-    <div class="section social-buttons">
-        <h2>Síguenos en</h2>
-        <a href="https://youtube.com/@aurinmix?si=XBiUp1Ndm1vS163D"><i class="fab fa-youtube"></i> YouTube</a>
-        <a href="https://twitch.tv/aurinmix"><i class="fab fa-twitch"></i> Twitch</a>
-        <a href="https://x.com/Aurinmix"><i class="fab fa-x-twitter"></i> Twitter (X)</a>
-        <a href="https://discord.gg/QwS5VBW8y3"><i class="fab fa-discord"></i> Discord MixWorlds</a>
-        <a href="https://www.facebook.com/share/g/oTF2A6GLA8fs5Bv2/"><i class="fab fa-facebook"></i> Facebook</a>
-        <a href="https://www.tiktok.com/@aurinmix"><i class="fab fa-tiktok"></i> TikTok</a>
-        <a href="https://mixworlds.net/"><i class="fa-solid fa-globe"></i> MixWorlds</a>
-    </div>
+<body>
+  <div class="wrap">
+
+    <header>
+      <img class="logo" src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="Logo MixWorlds">
+
+      <h1 class="title">MIXWORLDS</h1>
+      <p class="subtitle">Comunidad gamer de supervivencia · Ark ASA y más</p>
+
+      <div class="chips">
+        <div class="chip">Ark Survival Ascended</div>
+        <div class="chip">V Rising</div>
+        <div class="chip">Soul Mask</div>
+        <div class="chip">Palworld</div>
+        <div class="chip">Minecraft</div>
+        <div class="chip">No Man’s Sky</div>
+      </div>
+
+      <div class="featured">
+        <div class="left">
+          <b>Cluster Ark ASA · PvE MixWorlds</b>
+          <span>Únete a la aventura principal de la comunidad</span>
+        </div>
+        <a class="btn" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer">
+          Entrar al Discord
+        </a>
+      </div>
+    </header>
+
+    <main class="links" aria-label="Enlaces MixWorlds">
+      <a class="link" href="https://youtube.com/@aurinmix?si=XBiUp1Ndm1vS163D" target="_blank" rel="noopener noreferrer" aria-label="YouTube Aurinmix">
+        <i class="fab fa-youtube"></i> YouTube
+        <span class="meta">Vídeos, clips y guías</span>
+      </a>
+
+      <a class="link" href="https://twitch.tv/aurinmix" target="_blank" rel="noopener noreferrer" aria-label="Twitch Aurinmix">
+        <i class="fab fa-twitch"></i> Twitch
+        <span class="meta">Directos frecuentes</span>
+      </a>
+
+      <a class="link" href="https://x.com/Aurinmix" target="_blank" rel="noopener noreferrer" aria-label="Twitter X Aurinmix">
+        <i class="fab fa-x-twitter"></i> Twitter (X)
+        <span class="meta">Noticias y avisos</span>
+      </a>
+
+      <a class="link" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer" aria-label="Discord MixWorlds">
+        <i class="fab fa-discord"></i> Discord MixWorlds
+        <span class="meta">Comunidad activa</span>
+      </a>
+
+      <a class="link" href="https://www.tiktok.com/@aurinmix" target="_blank" rel="noopener noreferrer" aria-label="TikTok Aurinmix">
+        <i class="fab fa-tiktok"></i> TikTok
+        <span class="meta">Shorts y momentos</span>
+      </a>
+
+      <a class="link" href="https://www.facebook.com/share/g/oTF2A6GLA8fs5Bv2/" target="_blank" rel="noopener noreferrer" aria-label="Facebook MixWorlds">
+        <i class="fab fa-facebook"></i> Facebook
+        <span class="meta">Grupo y novedades</span>
+      </a>
+
+      <!-- 🔥 ENLACE GSA ACTUALIZADO AQUÍ -->
+      <a class="link" href="https://calendariomixworlds.premiumark.net/page/136000-inicio" target="_blank" rel="noopener noreferrer" aria-label="GSA Web Comunidad MixWorlds">
+        <i class="fa-solid fa-globe"></i> GSA Web Comunidad MixWorlds
+        <span class="meta">Portal oficial GameServerApp</span>
+      </a>
+
+    </main>
+
+    <footer>
+      © 2025 MixWorlds · Hecho por jugadores, para jugadores
+    </footer>
+
+  </div>
 </body>
 </html>
