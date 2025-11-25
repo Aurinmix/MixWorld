@@ -7,13 +7,37 @@
   <title>MixWorlds | Comunidad gamer de supervivencia</title>
   <meta name="description" content="MixWorlds es una comunidad gamer centrada en Ark Survival Ascended y juegos de supervivencia. Servidores privados, eventos frecuentes y Discord activo." />
 
-  <!-- Open Graph / Twitter -->
+  <!-- SEO / Social -->
   <meta property="og:title" content="MixWorlds | Comunidad gamer" />
   <meta property="og:description" content="Servidores privados de Ark ASA, eventos frecuentes y comunidad activa de supervivencia." />
   <meta property="og:image" content="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Fondo_Esmeralda.png" />
   <meta property="og:url" content="https://mixworlds.net/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Color barra navegador móvil -->
+  <meta name="theme-color" content="#00e6a8" />
+
+  <!-- Schema.org básico -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"MixWorlds",
+    "url":"https://mixworlds.net/",
+    "sameAs":[
+      "https://discord.gg/QwS5VBW8y3",
+      "https://twitch.tv/aurinmix",
+      "https://youtube.com/@aurinmix",
+      "https://x.com/Aurinmix",
+      "https://www.tiktok.com/@aurinmix"
+    ]
+  }
+  </script>
+
+  <!-- Preload logos para cargar rápido -->
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png">
+  <link rel="preload" as="image" href="https://i.ibb.co/601yRJqp/mix-worlds-Logo.png">
 
   <!-- Fonts + Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +47,9 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap');
 
+    /* =========================
+       THEME SYSTEM
+       ========================= */
     :root{
       --bg: #050607;
       --panel: rgba(8, 12, 10, 0.72);
@@ -34,6 +61,19 @@
       --text: #e9fff7;
       --muted: #9adbc8;
       --radius: 16px;
+      --divider: linear-gradient(90deg, transparent, rgba(0,230,168,0.8), rgba(231,200,90,0.7), rgba(0,230,168,0.8), transparent);
+    }
+    body[data-theme="dark"]{
+      --bg: #020303;
+      --panel: rgba(5, 8, 7, 0.8);
+      --panel-strong: rgba(5, 8, 7, 0.95);
+      --emerald: #00c996;
+      --emerald-soft: rgba(0, 201, 150, 0.18);
+      --gold: #c9aa3a;
+      --gold-soft: rgba(201, 170, 58, 0.10);
+      --text: #e7fff6;
+      --muted: #7fcab6;
+      --divider: linear-gradient(90deg, transparent, rgba(0,201,150,0.7), rgba(0,0,0,0), rgba(0,201,150,0.7), transparent);
     }
 
     * { box-sizing: border-box; }
@@ -83,8 +123,9 @@
 
     .wrap{
       width: min(720px, 94vw);
-      margin: 28px auto 40px;
+      margin: 28px auto 60px;
       padding: 18px;
+      position: relative;
     }
 
     /* Header */
@@ -109,6 +150,54 @@
     }
     @keyframes spin { to { transform: rotate(360deg);} }
 
+    /* Switch tema */
+    .theme-toggle{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 5;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 8px;
+      background: var(--panel-strong);
+      border:1px solid rgba(0,230,168,0.35);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .theme-toggle input{
+      width: 44px;
+      height: 22px;
+      appearance: none;
+      background: rgba(0,0,0,0.6);
+      border-radius: 999px;
+      position: relative;
+      outline: none;
+      cursor: pointer;
+      border:1px solid rgba(0,230,168,0.4);
+      transition: background .2s ease;
+    }
+    .theme-toggle input::after{
+      content:"";
+      position:absolute;
+      top:2px; left:2px;
+      width:18px; height:18px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+      transition: transform .2s ease, background .2s ease;
+    }
+    body[data-theme="dark"] .theme-toggle input{
+      background: rgba(0,0,0,0.9);
+    }
+    body[data-theme="dark"] .theme-toggle input::after{
+      transform: translateX(22px);
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    /* Logos duo */
     .logo{
       width: 130px;
       height: 130px;
@@ -117,28 +206,26 @@
       z-index: 1;
       filter: drop-shadow(0 0 18px rgba(0,230,168,0.45));
     }
-
-    /* >>> NUEVO: logos lado a lado <<< */
     .logos-duo{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 22px;
-      margin: 0 auto 8px;
-      position: relative;
-      z-index: 2;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:22px;
+      margin:0 auto 8px;
+      position:relative;
+      z-index:2;
       flex-wrap: wrap;
     }
     .logos-duo .logo{
-      width: 120px;
-      height: auto;
-      margin: 0;
-      opacity: 0;
+      width:120px;
+      height:auto;
+      margin:0;
+      opacity:0;
       animation: fadeInLogo 1.2s ease forwards;
     }
     @keyframes fadeInLogo{
-      from { transform: scale(0.92); opacity: 0; }
-      to   { transform: scale(1); opacity: 1; }
+      from{ transform: scale(0.92); opacity:0; }
+      to{ transform: scale(1); opacity:1; }
     }
 
     .title{
@@ -158,7 +245,7 @@
       z-index: 1;
     }
 
-    /* Badge juegos */
+    /* Chips con pulso suave */
     .chips{
       display:flex;
       flex-wrap:wrap;
@@ -175,46 +262,57 @@
       background: rgba(0,0,0,0.4);
       border:1px solid rgba(0,230,168,0.25);
       color:#caffef;
+      box-shadow: 0 0 0 rgba(0,230,168,0);
+      animation: chipPulse 3.2s ease-in-out infinite;
+    }
+    .chip:hover{
+      border-color: rgba(231,200,90,0.7);
+      color: #fff3c2;
+      transform: translateY(-1px);
+    }
+    @keyframes chipPulse{
+      0%,100%{ box-shadow: 0 0 0 rgba(0,230,168,0); }
+      50%{ box-shadow: 0 0 12px rgba(0,230,168,0.35); }
     }
 
     /* Destacado */
     .featured{
-      margin-top: 14px;
-      padding: 12px;
+      margin-top:14px;
+      padding:12px;
       background: var(--panel-strong);
-      border: 1px solid rgba(231,200,90,0.35);
-      border-radius: 14px;
+      border:1px solid rgba(231,200,90,0.35);
+      border-radius:14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      position: relative;
-      z-index: 1;
+      position:relative;
+      z-index:1;
     }
     .featured .left{
       text-align:left;
-      line-height: 1.2;
+      line-height:1.2;
     }
     .featured .left b{
       display:block;
       font-family: Orbitron, sans-serif;
       color: var(--gold);
-      font-size: 1.05rem;
-      margin-bottom: 4px;
+      font-size:1.05rem;
+      margin-bottom:4px;
     }
     .featured .left span{
-      color: #cdeee3;
-      font-size: 0.95rem;
+      color:#cdeee3;
+      font-size:0.95rem;
     }
     .featured .btn{
-      white-space: nowrap;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 700;
+      white-space:nowrap;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
       text-decoration:none;
       color:#00110c;
       background: linear-gradient(180deg, var(--gold), #b59b2f);
-      box-shadow: 0 0 16px rgba(231,200,90,0.35);
+      box-shadow:0 0 16px rgba(231,200,90,0.35);
       transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
     }
     .featured .btn:hover{
@@ -223,14 +321,58 @@
       box-shadow: 0 0 25px rgba(231,200,90,0.55);
     }
 
+    /* Actividades */
+    .activities{
+      margin-top: 14px;
+      padding: 12px;
+      background: var(--panel);
+      border: 1px solid rgba(0,230,168,0.22);
+      border-radius: 14px;
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .act{
+      padding: 10px 8px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.35);
+      border:1px solid rgba(0,230,168,0.18);
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: transform .15s ease, border-color .2s ease;
+    }
+    .act i{
+      font-size: 1.3rem;
+      display:block;
+      margin-bottom: 6px;
+      color: var(--emerald);
+      filter: drop-shadow(0 0 6px rgba(0,230,168,0.6));
+    }
+    .act:hover{
+      transform: translateY(-2px);
+      border-color: rgba(231,200,90,0.5);
+      color: #e8fff7;
+    }
+
+    /* Divisor holográfico */
+    .divider{
+      height: 2px;
+      width: 92%;
+      margin: 16px auto 10px;
+      background: var(--divider);
+      border-radius: 999px;
+      box-shadow: 0 0 14px rgba(0,230,168,0.35);
+    }
+
     /* Links */
     .links{
-      margin-top: 16px;
+      margin-top: 12px;
       display:flex;
       flex-direction:column;
       gap:12px;
     }
-
     .link{
       display:flex;
       align-items:center;
@@ -258,7 +400,6 @@
       transform: translateX(-60%);
       transition: transform .5s ease;
     }
-
     .link:hover{
       transform: translateY(-2px);
       border-color: rgba(0,230,168,0.7);
@@ -274,6 +415,7 @@
       text-align:center;
       color: var(--emerald);
       filter: drop-shadow(0 0 8px rgba(0,230,168,0.55));
+      transition: transform .2s ease;
     }
 
     .link .meta{
@@ -283,6 +425,36 @@
       margin-left:auto;
       opacity: 0.9;
     }
+
+    /* Etiquetas tipo Linktree */
+    .tag{
+      position:absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 0.72rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.75);
+      border:1px solid rgba(231,200,90,0.6);
+      color: #ffe9a6;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      box-shadow: 0 0 8px rgba(231,200,90,0.25);
+    }
+    .tag.green{
+      border-color: rgba(0,230,168,0.8);
+      color: #caffef;
+      box-shadow: 0 0 8px rgba(0,230,168,0.25);
+    }
+
+    /* micro animaciones por red */
+    .link.youtube:hover i{ transform: rotate(-6deg) scale(1.1); }
+    .link.twitch:hover i{ transform: translateY(-2px) scale(1.12); }
+    .link.twitter:hover i{ transform: translateX(2px) scale(1.1); }
+    .link.discord:hover i{ transform: scale(1.12) rotate(4deg); }
+    .link.tiktok:hover i{ transform: translateY(-2px) rotate(-4deg) scale(1.1); }
+    .link.facebook:hover i{ transform: translateX(-2px) scale(1.1); }
+    .link.gsa:hover i{ transform: rotate(8deg) scale(1.1); }
 
     .link:focus-visible{
       outline: 3px solid var(--gold);
@@ -298,13 +470,44 @@
       opacity: 0.9;
     }
 
+    /* Botón flotante Discord */
+    .fab-discord{
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 999;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      color:#00110c;
+      text-decoration:none;
+      font-weight:900;
+      background: linear-gradient(180deg, var(--emerald), #009e75);
+      box-shadow: 0 0 18px rgba(0,230,168,0.55);
+      border:1px solid rgba(0,0,0,0.6);
+      transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .fab-discord i{
+      font-size: 1.25rem;
+      color:#00110c;
+    }
+    .fab-discord:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 0 28px rgba(0,230,168,0.8);
+    }
+
     /* Responsive */
     @media (max-width: 560px){
       .featured{ flex-direction:column; text-align:center; }
-      .featured .left{ text-align: center; }
+      .featured .left{ text-align:center; }
+      .activities{ grid-template-columns: 1fr; }
       .link{ font-size: 1rem; }
       .link .meta{ display:none; }
       .logos-duo .logo{ width: 96px; }
+      .theme-toggle{ right: 8px; top: 8px; }
     }
 
     /* Reduce motion */
@@ -314,16 +517,22 @@
       .link, .featured .btn{ transition:none; }
       .link::after{ display:none; }
       .logos-duo .logo{ animation:none; opacity:1; }
+      .chip{ animation:none; }
     }
-
   </style>
 </head>
 
-<body>
+<body data-theme="mix">
   <div class="wrap">
 
     <header>
-      <!-- >>> LOGOS EN PAREJA <<< -->
+      <!-- Switch tema -->
+      <label class="theme-toggle" title="Cambiar tema">
+        Tema
+        <input id="themeSwitch" type="checkbox" aria-label="Cambiar tema MixWorlds oscuro">
+      </label>
+
+      <!-- Logos -->
       <div class="logos-duo">
         <img class="logo" src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="Logo Aurinmix">
         <img class="logo" src="https://i.ibb.co/601yRJqp/mix-worlds-Logo.png" alt="Logo MixWorlds">
@@ -350,42 +559,55 @@
           Entrar al Discord
         </a>
       </div>
+
+      <!-- Actividades -->
+      <div class="activities" aria-label="Actividades MixWorlds">
+        <div class="act"><i class="fa-solid fa-dragon"></i> Cluster Ark ASA</div>
+        <div class="act"><i class="fa-solid fa-people-group"></i> Comunidad activa</div>
+        <div class="act"><i class="fa-solid fa-meteor"></i> Creatividad & eventos</div>
+      </div>
     </header>
 
+    <div class="divider"></div>
+
     <main class="links" aria-label="Enlaces MixWorlds">
-      <a class="link" href="https://youtube.com/@aurinmix?si=XBiUp1Ndm1vS163D" target="_blank" rel="noopener noreferrer" aria-label="YouTube Aurinmix">
+      <a class="link youtube" href="https://youtube.com/@aurinmix?si=XBiUp1Ndm1vS163D" target="_blank" rel="noopener noreferrer" aria-label="YouTube Aurinmix">
         <i class="fab fa-youtube"></i> YouTube
         <span class="meta">Vídeos, clips y guías</span>
+        <span class="tag green">Nuevo</span>
       </a>
 
-      <a class="link" href="https://twitch.tv/aurinmix" target="_blank" rel="noopener noreferrer" aria-label="Twitch Aurinmix">
+      <a class="link twitch" href="https://twitch.tv/aurinmix" target="_blank" rel="noopener noreferrer" aria-label="Twitch Aurinmix">
         <i class="fab fa-twitch"></i> Twitch
         <span class="meta">Directos frecuentes</span>
+        <span class="tag">Activo</span>
       </a>
 
-      <a class="link" href="https://x.com/Aurinmix" target="_blank" rel="noopener noreferrer" aria-label="Twitter X Aurinmix">
+      <a class="link twitter" href="https://x.com/Aurinmix" target="_blank" rel="noopener noreferrer" aria-label="Twitter X Aurinmix">
         <i class="fab fa-x-twitter"></i> Twitter (X)
         <span class="meta">Noticias y avisos</span>
       </a>
 
-      <a class="link" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer" aria-label="Discord MixWorlds">
+      <a class="link discord" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer" aria-label="Discord MixWorlds">
         <i class="fab fa-discord"></i> Discord MixWorlds
         <span class="meta">Comunidad activa</span>
+        <span class="tag green">Oficial</span>
       </a>
 
-      <a class="link" href="https://www.tiktok.com/@aurinmix" target="_blank" rel="noopener noreferrer" aria-label="TikTok Aurinmix">
+      <a class="link tiktok" href="https://www.tiktok.com/@aurinmix" target="_blank" rel="noopener noreferrer" aria-label="TikTok Aurinmix">
         <i class="fab fa-tiktok"></i> TikTok
         <span class="meta">Shorts y momentos</span>
       </a>
 
-      <a class="link" href="https://www.facebook.com/share/g/oTF2A6GLA8fs5Bv2/" target="_blank" rel="noopener noreferrer" aria-label="Facebook MixWorlds">
+      <a class="link facebook" href="https://www.facebook.com/share/g/oTF2A6GLA8fs5Bv2/" target="_blank" rel="noopener noreferrer" aria-label="Facebook MixWorlds">
         <i class="fab fa-facebook"></i> Facebook
         <span class="meta">Grupo y novedades</span>
       </a>
 
-      <a class="link" href="https://calendariomixworlds.premiumark.net/page/136000-inicio" target="_blank" rel="noopener noreferrer" aria-label="GSA Web Comunidad MixWorlds">
+      <a class="link gsa" href="https://calendariomixworlds.premiumark.net/page/136000-inicio" target="_blank" rel="noopener noreferrer" aria-label="GSA Web Comunidad MixWorlds">
         <i class="fa-solid fa-globe"></i> GSA Web Comunidad MixWorlds
         <span class="meta">Portal oficial GameServerApp</span>
+        <span class="tag">Comunidad</span>
       </a>
 
     </main>
@@ -395,5 +617,33 @@
     </footer>
 
   </div>
+
+  <!-- Botón flotante Discord -->
+  <a class="fab-discord" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer" aria-label="Únete al Discord MixWorlds">
+    <i class="fab fa-discord"></i> Únete al Discord
+  </a>
+
+  <script>
+    // Theme toggle
+    const body = document.body;
+    const sw = document.getElementById("themeSwitch");
+
+    // carga preferencia guardada
+    const saved = localStorage.getItem("mixworlds-theme");
+    if(saved === "dark"){
+      body.setAttribute("data-theme","dark");
+      sw.checked = true;
+    }
+
+    sw.addEventListener("change", () => {
+      if(sw.checked){
+        body.setAttribute("data-theme","dark");
+        localStorage.setItem("mixworlds-theme","dark");
+      }else{
+        body.setAttribute("data-theme","mix");
+        localStorage.setItem("mixworlds-theme","mix");
+      }
+    });
+  </script>
 </body>
 </html>
