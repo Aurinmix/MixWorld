@@ -7,6 +7,9 @@
   <title>MixWorlds | Comunidad gamer de supervivencia</title>
   <meta name="description" content="MixWorlds es una comunidad gamer centrada en Ark Survival Ascended y juegos de supervivencia. Servidores privados, eventos frecuentes y Discord activo." />
 
+  <!-- Favicon (Opcional: cambia la URL por la de tu propio icono si lo deseas) -->
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" />
+
   <!-- SEO / Social -->
   <meta property="og:title" content="MixWorlds | Comunidad gamer" />
   <meta property="og:description" content="Servidores privados de Ark ASA, eventos frecuentes y comunidad activa de supervivencia." />
@@ -170,6 +173,7 @@
       border-radius: 999px;
       font-size: 0.85rem;
       color: var(--muted);
+      cursor: pointer;
     }
     .theme-toggle input{
       width: 44px;
@@ -482,7 +486,7 @@
   </style>
 </head>
 
-<body data-theme="mix">
+<body>
   <div class="wrap">
 
     <header>
@@ -530,7 +534,7 @@
     <main class="links" aria-label="Enlaces MixWorlds">
       <a class="link gsa" href="https://calendariomixworlds.premiumark.net/page/136000-inicio" target="_blank" rel="noopener noreferrer">
         <i class="fa-solid fa-globe"></i> Website MixWorlds
-        <span class="meta">Web oficial</span>
+        <span class="meta">Portal oficial GameServerApp</span>
       </a>
 
       <a class="link wiki" href="https://mixworlds-wiki.gitbook.io/mixworlds-wiki-docs" target="_blank" rel="noopener noreferrer">
@@ -560,33 +564,40 @@
     </main>
 
     <footer>
-      © 2025 MixWorlds · Hecho por jugadores, para jugadores
+      © <span id="year"></span> MixWorlds · Hecho por jugadores, para jugadores
     </footer>
 
   </div>
 
-  <a class="fab-discord" href="https://discord.gg/QwS5VBW8y3" target="_blank">
+  <a class="fab-discord" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer" aria-label="Únete al servidor de Discord de MixWorlds">
     <i class="fab fa-discord"></i> Únete al Discord
   </a>
 
   <script>
+    /* =========================
+       Año dinámico en Footer
+       ========================= */
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     /* =========================
        Theme toggle
        ========================= */
     const body = document.body;
     const sw = document.getElementById("themeSwitch");
     const saved = localStorage.getItem("mixworlds-theme");
+
     if(saved === "dark"){
       body.setAttribute("data-theme","dark");
       sw.checked = true;
     }
+    
     sw.addEventListener("change", () => {
       if(sw.checked){
         body.setAttribute("data-theme","dark");
         localStorage.setItem("mixworlds-theme","dark");
       }else{
-        body.setAttribute("data-theme","mix");
-        localStorage.setItem("mixworlds-theme","mix");
+        body.removeAttribute("data-theme");
+        localStorage.setItem("mixworlds-theme","light");
       }
     });
 
@@ -613,7 +624,6 @@
     // Mobile tilt (si disponible)
     window.addEventListener("deviceorientation", (e) => {
       if(e.beta == null || e.gamma == null) return;
-      // beta: -180..180 (front-back), gamma: -90..90 (left-right)
       const tiltX = Math.max(-1, Math.min(1, e.gamma / 30));
       const tiltY = Math.max(-1, Math.min(1, e.beta / 30));
       targetX = tiltX * maxMove;
@@ -621,7 +631,6 @@
     }, { passive: true });
 
     function animateParallax(){
-      // suavizado
       currentX += (targetX - currentX) * 0.06;
       currentY += (targetY - currentY) * 0.06;
       body.style.setProperty("--parallax-x", currentX.toFixed(2) + "px");
