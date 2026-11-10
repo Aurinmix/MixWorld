@@ -2,51 +2,77 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <title>MixWorlds | Comunidad gamer de supervivencia</title>
   <meta name="description" content="MixWorlds es una comunidad gamer centrada en Ark Survival Ascended y juegos de supervivencia. Servidores privados, eventos frecuentes y Discord activo." />
 
-  <!-- Favicon (Opcional: cambia la URL por la de tu propio icono si lo deseas) -->
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" />
+  <!-- Favicon optimizado local -->
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <link rel="apple-touch-icon" href="./assets/favicon.png" />
 
-  <!-- SEO / Social -->
-  <meta property="og:title" content="MixWorlds | Comunidad gamer" />
+  <!-- Preloads locales optimizados (WebP instantáneo sin peticiones externas lentas) -->
+  <link rel="preload" as="image" href="./assets/logo-aurinmix.webp" type="image/webp" />
+  <link rel="preload" as="image" href="./assets/logo-mixworlds.webp" type="image/webp" />
+  <link rel="preload" as="image" href="./assets/fondo-chip.webp" type="image/webp" />
+
+  <!-- SEO / Open Graph -->
+  <meta property="og:title" content="MixWorlds | Comunidad gamer de supervivencia" />
   <meta property="og:description" content="Servidores privados de Ark ASA, eventos frecuentes y comunidad activa de supervivencia." />
-  <meta property="og:image" content="https://i.ibb.co/4wQyFsNp/Fondo-Chip.png" />
+  <meta property="og:image" content="https://aurinmix.github.io/MixWorld/assets/fondo-chip.jpg" />
   <meta property="og:url" content="https://aurinmix.github.io/MixWorld/" />
   <meta property="og:type" content="website" />
+
+  <!-- Twitter / X Cards -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MixWorlds | Comunidad gamer de supervivencia" />
+  <meta name="twitter:description" content="Servidores privados de Ark ASA, eventos frecuentes y comunidad activa de supervivencia." />
+  <meta name="twitter:image" content="https://aurinmix.github.io/MixWorld/assets/fondo-chip.jpg" />
+  <meta name="twitter:site" content="@Aurinmix" />
+  <meta name="twitter:creator" content="@Aurinmix" />
 
   <link rel="canonical" href="https://aurinmix.github.io/MixWorld/" />
   <meta name="theme-color" content="#00e6a8" />
 
+  <!-- Datos estructurados (Schema.org) -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Organization",
     "name":"MixWorlds",
     "url":"https://aurinmix.github.io/MixWorld/",
+    "logo":"https://aurinmix.github.io/MixWorld/assets/logo-mixworlds.png",
     "sameAs":[
       "https://discord.gg/QwS5VBW8y3",
       "https://twitch.tv/aurinmix",
       "https://youtube.com/@aurinmix",
       "https://x.com/Aurinmix",
       "https://www.tiktok.com/@aurinmix",
-      "https://mixworlds-wiki.gitbook.io/mixworlds-wiki-docs"
+      "https://mixworlds-wiki.gitbook.io/mixworlds-wiki-docs",
+      "https://calendariomixworlds.premiumark.net/page/136000-inicio"
     ]
   }
   </script>
 
-  <link rel="preload" as="image" href="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png">
-  <link rel="preload" as="image" href="https://i.ibb.co/601yRJqp/mix-worlds-Logo.png">
+  <!-- Prevenir parpadeo de tema (FOUC) antes de renderizar -->
+  <script>
+    (function(){
+      try {
+        const saved = localStorage.getItem("mixworlds-theme");
+        if(saved === "dark") {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      }catch(e){}
+    })();
+  </script>
 
+  <!-- Tipografías e Iconos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Roboto:wght@400;500;700&display=swap');
 
     :root{
       --bg: #050607;
@@ -54,6 +80,7 @@
       --panel-strong: rgba(8, 12, 10, 0.9);
       --emerald: #00e6a8;
       --emerald-soft: rgba(0, 230, 168, 0.20);
+      --emerald-glow: rgba(0, 230, 168, 0.45);
       --gold: #e7c85a;
       --gold-soft: rgba(231,200,90,0.15);
       --text: #e9fff7;
@@ -62,12 +89,13 @@
       --divider: linear-gradient(90deg, transparent, rgba(0,230,168,0.8), rgba(231,200,90,0.7), rgba(0,230,168,0.8), transparent);
     }
 
-    body[data-theme="dark"]{
+    [data-theme="dark"]{
       --bg: #020303;
-      --panel: rgba(5, 8, 7, 0.8);
+      --panel: rgba(5, 8, 7, 0.85);
       --panel-strong: rgba(5, 8, 7, 0.95);
       --emerald: #00c996;
       --emerald-soft: rgba(0, 201, 150, 0.18);
+      --emerald-glow: rgba(0, 201, 150, 0.35);
       --gold: #c9aa3a;
       --gold-soft: rgba(201, 170, 58, 0.10);
       --text: #e7fff6;
@@ -85,13 +113,14 @@
       background: var(--bg);
       overflow-x: hidden;
       text-align: center;
+      position: relative;
 
-      /* variables de parallax */
+      /* Variables de parallax */
       --parallax-x: 0px;
       --parallax-y: 0px;
     }
 
-    /* Fondo tech + bruma + PARALLAX SUAVE */
+    /* Fondo tech + bruma + Parallax suave */
     body::before{
       content:"";
       position: fixed;
@@ -100,13 +129,23 @@
       background:
         radial-gradient(circle at 15% 10%, var(--emerald-soft), transparent 60%),
         radial-gradient(circle at 85% 85%, var(--gold-soft), transparent 60%),
-        url('https://i.ibb.co/4wQyFsNp/Fondo-Chip.png') center/cover no-repeat;
+        url('./assets/fondo-chip.jpg') center/cover no-repeat;
+      background-image:
+        radial-gradient(circle at 15% 10%, var(--emerald-soft), transparent 60%),
+        radial-gradient(circle at 85% 85%, var(--gold-soft), transparent 60%),
+        image-set(
+          url('./assets/fondo-chip.webp') type('image/webp'),
+          url('./assets/fondo-chip.jpg') type('image/jpeg')
+        );
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
       background-blend-mode: screen;
       filter: saturate(1.1) contrast(1.08);
 
       animation: fogMove 22s ease-in-out infinite alternate;
 
-      /* Parallax: movemos TODA la capa suavemente */
+      /* Parallax: movemos suavemente */
       transform: translate3d(var(--parallax-x), var(--parallax-y), 0) scale(1.06);
       will-change: transform;
     }
@@ -117,22 +156,34 @@
       100% { background-position: 15% 10%, 85% 85%, center; }
     }
 
+    /* Rejilla cibernética sutil con soporte Safari */
     body::after{
       content:"";
       position: fixed;
       inset:0;
-      z-index:-1;
+      z-index:-2;
       background:
         linear-gradient(transparent 95%, rgba(0, 230, 168, 0.06) 96%),
         linear-gradient(90deg, transparent 95%, rgba(0, 230, 168, 0.06) 96%);
       background-size: 60px 60px;
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 65%);
       mask-image: radial-gradient(circle at 50% 30%, black 0%, transparent 65%);
       pointer-events: none;
     }
 
+    /* Canvas de partículas y esporas de supervivencia */
+    #particlesCanvas{
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      width: 100vw;
+      height: 100vh;
+    }
+
     .wrap{
       width: min(720px, 94vw);
-      margin: 28px auto 60px;
+      margin: 28px auto 80px;
       padding: 18px;
       position: relative;
     }
@@ -145,7 +196,8 @@
       box-shadow:
         0 0 0 1px rgba(231,200,90,0.12) inset,
         0 8px 30px rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
       position: relative;
       overflow: hidden;
     }
@@ -156,6 +208,7 @@
       inset:-40%;
       background: conic-gradient(from 180deg, transparent, rgba(0,230,168,0.12), transparent 30%, rgba(231,200,90,0.08), transparent 60%);
       animation: spin 10s linear infinite;
+      pointer-events: none;
     }
     @keyframes spin { to { transform: rotate(360deg);} }
 
@@ -167,13 +220,19 @@
       display:flex;
       align-items:center;
       gap:8px;
-      padding: 6px 8px;
+      padding: 6px 10px;
       background: var(--panel-strong);
       border:1px solid rgba(0,230,168,0.35);
       border-radius: 999px;
       font-size: 0.85rem;
       color: var(--muted);
       cursor: pointer;
+      user-select: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .theme-toggle:hover{
+      border-color: rgba(0,230,168,0.7);
+      box-shadow: 0 0 12px rgba(0,230,168,0.25);
     }
     .theme-toggle input{
       width: 44px;
@@ -191,29 +250,21 @@
       content:"";
       position:absolute;
       top:2px; left:2px;
-      width:18px; height:18px;
+      width:16px; height:16px;
       border-radius: 50%;
       background: var(--emerald);
       box-shadow: 0 0 10px var(--emerald);
       transition: transform .2s ease, background .2s ease;
     }
-    body[data-theme="dark"] .theme-toggle input{
+    [data-theme="dark"] .theme-toggle input{
       background: rgba(0,0,0,0.9);
     }
-    body[data-theme="dark"] .theme-toggle input::after{
+    [data-theme="dark"] .theme-toggle input::after{
       transform: translateX(22px);
       background: var(--gold);
       box-shadow: 0 0 10px var(--gold);
     }
 
-    .logo{
-      width: 130px;
-      height: 130px;
-      margin: 0 auto 10px;
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 0 18px rgba(0,230,168,0.45));
-    }
     .logos-duo{
       display:flex;
       justify-content:center;
@@ -226,10 +277,17 @@
     }
     .logos-duo .logo{
       width:120px;
-      height:auto;
+      height:120px;
+      object-fit: contain;
       margin:0;
       opacity:0;
       animation: fadeInLogo 1.2s ease forwards;
+      filter: drop-shadow(0 0 16px rgba(0,230,168,0.45));
+      transition: transform .3s ease, filter .3s ease;
+    }
+    .logos-duo .logo:hover{
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 22px rgba(0,230,168,0.7));
     }
     @keyframes fadeInLogo{
       from{ transform: scale(0.92); opacity:0; }
@@ -238,12 +296,13 @@
 
     .title{
       font-family: Orbitron, sans-serif;
+      font-weight: 800;
       font-size: clamp(1.6rem, 4.2vw, 2.3rem);
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       margin: 8px 0 4px;
       position: relative;
       z-index: 1;
-      text-shadow: 0 0 12px rgba(0,230,168,0.35);
+      text-shadow: 0 0 14px rgba(0,230,168,0.45);
     }
     .subtitle{
       color: var(--muted);
@@ -264,17 +323,20 @@
     }
     .chip{
       font-size: 0.85rem;
-      padding:6px 10px;
+      padding:6px 12px;
       border-radius: 999px;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.45);
       border:1px solid rgba(0,230,168,0.25);
       color:#caffef;
       animation: chipPulse 3.2s ease-in-out infinite;
+      transition: border-color .2s ease, color .2s ease, transform .2s ease;
+      user-select: none;
     }
     .chip:hover{
       border-color: rgba(231,200,90,0.7);
       color: #fff3c2;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 0 14px rgba(231,200,90,0.3);
     }
     @keyframes chipPulse{
       0%,100%{ box-shadow: 0 0 0 rgba(0,230,168,0); }
@@ -283,23 +345,31 @@
 
     .featured{
       margin-top:14px;
-      padding:12px;
+      padding:14px 16px;
       background: var(--panel-strong);
       border:1px solid rgba(231,200,90,0.35);
       border-radius:14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
+      gap:12px;
       position:relative;
       z-index:1;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .featured:hover{
+      border-color: rgba(231,200,90,0.7);
+      box-shadow: 0 10px 30px rgba(231,200,90,0.18);
     }
     .featured .left{
       text-align:left;
-      line-height:1.2;
+      line-height:1.25;
     }
     .featured .left b{
-      display:block;
+      display:flex;
+      align-items:center;
+      gap:8px;
       font-family: Orbitron, sans-serif;
       color: var(--gold);
       font-size:1.05rem;
@@ -307,11 +377,11 @@
     }
     .featured .left span{
       color:#cdeee3;
-      font-size:0.95rem;
+      font-size:0.92rem;
     }
     .featured .btn{
       white-space:nowrap;
-      padding:10px 14px;
+      padding:10px 16px;
       border-radius:12px;
       font-weight:700;
       text-decoration:none;
@@ -319,11 +389,14 @@
       background: linear-gradient(180deg, var(--gold), #b59b2f);
       box-shadow:0 0 16px rgba(231,200,90,0.35);
       transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
     .featured .btn:hover{
       transform: translateY(-2px);
-      filter: brightness(1.05);
-      box-shadow: 0 0 25px rgba(231,200,90,0.55);
+      filter: brightness(1.08);
+      box-shadow: 0 0 25px rgba(231,200,90,0.65);
     }
 
     .activities{
@@ -363,26 +436,29 @@
     .divider{
       height: 2px;
       width: 92%;
-      margin: 16px auto 10px;
+      margin: 18px auto 12px;
       background: var(--divider);
       border-radius: 999px;
       box-shadow: 0 0 14px rgba(0,230,168,0.35);
     }
 
+    /* Contenedor con soporte 3D Perspective para enlaces */
     .links{
-      margin-top: 12px;
+      margin-top: 14px;
       display:flex;
       flex-direction:column;
       gap:12px;
+      perspective: 1000px;
     }
+
     .link{
       display:flex;
       align-items:center;
-      gap:12px;
-      padding: 14px 16px;
+      gap:14px;
+      padding: 14px 18px;
       background: var(--panel);
       border-radius: 14px;
-      border:1px solid rgba(0,230,168,0.28);
+      border:1px solid rgba(0,230,168,0.25);
       text-decoration: none;
       color: var(--text);
       font-weight: 700;
@@ -390,69 +466,153 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 8px 18px rgba(0,0,0,0.55);
-      transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      will-change: transform;
     }
-    .link::after{
+
+    /* Brillo holográfico interactivo que sigue el puntero */
+    .link::before{
       content:"";
       position:absolute;
-      inset:-60% -30%;
-      background: radial-gradient(circle, rgba(0,230,168,0.20), transparent 55%);
-      transform: translateX(-60%);
-      transition: transform .5s ease;
+      inset:0;
+      background: radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 230, 168, 0.22), transparent 70%);
+      opacity: 0;
+      transition: opacity .3s ease;
+      pointer-events: none;
     }
+    .link:hover::before{
+      opacity: 1;
+    }
+
     .link:hover{
-      transform: translateY(-2px);
-      border-color: rgba(0,230,168,0.7);
-      box-shadow: 0 10px 26px rgba(0, 230, 168, 0.18);
+      border-color: rgba(0,230,168,0.75);
+      box-shadow: 0 12px 28px rgba(0, 230, 168, 0.22);
     }
-    .link:hover::after{
-      transform: translateX(40%);
-    }
+
     .link i{
       font-size: 1.45rem;
       width: 28px;
       text-align:center;
       color: var(--emerald);
       filter: drop-shadow(0 0 8px rgba(0,230,168,0.55));
-      transition: transform .2s ease;
+      transition: transform .25s ease, filter .25s ease;
+      flex-shrink: 0;
     }
+
+    .link .label-box{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      line-height:1.2;
+    }
+    .link .title-text{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
     .link .meta{
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 400;
       color: var(--muted);
-      margin-left:auto;
+      margin-top: 2px;
       opacity: 0.9;
     }
 
-    .link.youtube:hover i{ transform: rotate(-6deg) scale(1.1); }
-    .link.twitch:hover i{ transform: translateY(-2px) scale(1.12); }
-    .link.twitter:hover i{ transform: translateX(2px) scale(1.1); }
-    .link.tiktok:hover i{ transform: translateY(-2px) rotate(-4deg) scale(1.1); }
-    .link.wiki:hover i{ transform: scale(1.15) rotate(3deg); }
-    .link.gsa:hover i{ transform: rotate(8deg) scale(1.1); }
+    /* Badges Sci-Fi con estilo Cyberpunk Glow */
+    .badge{
+      font-family: Orbitron, monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+    .badge i{
+      font-size: 0.55rem;
+      width: auto;
+      filter: none;
+    }
+
+    .badge-emerald{
+      background: rgba(0, 230, 168, 0.12);
+      border: 1px solid rgba(0, 230, 168, 0.45);
+      color: var(--emerald);
+      box-shadow: 0 0 8px rgba(0, 230, 168, 0.2);
+    }
+    .badge-gold{
+      background: rgba(231, 200, 90, 0.12);
+      border: 1px solid rgba(231, 200, 90, 0.45);
+      color: var(--gold);
+      box-shadow: 0 0 8px rgba(231, 200, 90, 0.2);
+    }
+    .badge-purple{
+      background: rgba(169, 112, 255, 0.15);
+      border: 1px solid rgba(169, 112, 255, 0.5);
+      color: #bf8dff;
+      box-shadow: 0 0 8px rgba(169, 112, 255, 0.25);
+    }
+    .badge-red{
+      background: rgba(255, 68, 68, 0.15);
+      border: 1px solid rgba(255, 68, 68, 0.5);
+      color: #ff7575;
+      box-shadow: 0 0 8px rgba(255, 68, 68, 0.25);
+    }
+    .badge-cyan{
+      background: rgba(29, 161, 242, 0.15);
+      border: 1px solid rgba(29, 161, 242, 0.5);
+      color: #55c3ff;
+      box-shadow: 0 0 8px rgba(29, 161, 242, 0.25);
+    }
+    .badge-pink{
+      background: rgba(254, 44, 85, 0.15);
+      border: 1px solid rgba(254, 44, 85, 0.5);
+      color: #ff6885;
+      box-shadow: 0 0 8px rgba(254, 44, 85, 0.25);
+    }
+
+    /* Animaciones individuales de iconos */
+    .link.youtube:hover i{ transform: rotate(-6deg) scale(1.15); color: #ff5050; }
+    .link.twitch:hover i{ transform: translateY(-2px) scale(1.15); color: #b788ff; }
+    .link.twitter:hover i{ transform: translateX(2px) scale(1.15); color: #4dc2ff; }
+    .link.tiktok:hover i{ transform: translateY(-2px) rotate(-6deg) scale(1.15); color: #ff5277; }
+    .link.wiki:hover i{ transform: scale(1.15) rotate(4deg); color: var(--gold); }
+    .link.gsa:hover i{ transform: rotate(8deg) scale(1.15); color: var(--emerald); }
 
     footer{
-      margin-top: 16px;
+      margin-top: 24px;
       color: #bfe4d8;
       font-size: 0.9rem;
       opacity: 0.9;
     }
 
+    /* Botón flotante Discord con Safe Area para iPhone/Android */
     .fab-discord{
       position: fixed;
-      bottom: 18px;
-      right: 18px;
+      bottom: max(18px, env(safe-area-inset-bottom, 18px));
+      right: max(18px, env(safe-area-inset-right, 18px));
       z-index: 999;
       display:flex;
       align-items:center;
       gap:10px;
-      padding: 12px 14px;
+      padding: 12px 18px;
       border-radius: 999px;
       color:#00110c;
       text-decoration:none;
       font-weight:900;
       background: linear-gradient(180deg, var(--emerald), #009e75);
-      box-shadow: 0 0 18px rgba(0,230,168,0.55);
+      box-shadow: 0 0 20px rgba(0,230,168,0.55);
       border:1px solid rgba(0,0,0,0.6);
       transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
     }
@@ -462,31 +622,36 @@
     }
     .fab-discord:hover{
       transform: translateY(-2px);
-      filter: brightness(1.05);
-      box-shadow: 0 0 28px rgba(0,230,168,0.8);
+      filter: brightness(1.08);
+      box-shadow: 0 0 28px rgba(0,230,168,0.85);
     }
 
     @media (max-width: 560px){
       .featured{ flex-direction:column; text-align:center; }
       .featured .left{ text-align:center; }
       .activities{ grid-template-columns: 1fr; }
-      .link{ font-size: 1rem; }
-      .link .meta{ display:none; }
-      .logos-duo .logo{ width: 96px; }
+      .link{ font-size: 1rem; padding: 12px 14px; }
+      .logos-duo .logo{ width: 96px; height: 96px; }
       .theme-toggle{ right: 8px; top: 8px; }
+      .wrap{ margin-bottom: 90px; }
     }
 
+    /* Respeto a usuarios con sensibilidad a animaciones */
     @media (prefers-reduced-motion: reduce){
       body::before{ animation:none; }
       header::before{ animation:none; }
       .chip{ animation:none; }
-      .link::after{ display:none; }
+      .link::before{ display:none; }
+      #particlesCanvas{ display:none; }
       body { --parallax-x: 0px; --parallax-y: 0px; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Canvas para partículas de supervivencia y esporas tech -->
+  <canvas id="particlesCanvas"></canvas>
+
   <div class="wrap">
 
     <header>
@@ -496,8 +661,14 @@
       </label>
 
       <div class="logos-duo">
-        <img class="logo" src="https://raw.githubusercontent.com/Aurinmix/MixWorld/main/Aurinmix%20logo%20sin%20fondo.png" alt="Logo Aurinmix">
-        <img class="logo" src="https://i.ibb.co/601yRJqp/mix-worlds-Logo.png" alt="Logo MixWorlds">
+        <picture>
+          <source srcset="./assets/logo-aurinmix.webp" type="image/webp">
+          <img class="logo" src="./assets/logo-aurinmix.png" alt="Logo Aurinmix" width="120" height="120" fetchpriority="high">
+        </picture>
+        <picture>
+          <source srcset="./assets/logo-mixworlds.webp" type="image/webp">
+          <img class="logo" src="./assets/logo-mixworlds.png" alt="Logo MixWorlds" width="120" height="120" fetchpriority="high">
+        </picture>
       </div>
 
       <h1 class="title">MIXWORLDS</h1>
@@ -514,8 +685,8 @@
 
       <div class="featured">
         <div class="left">
-          <b>Discord de la comunidad</b>
-          <span>Únete a MixWorlds</span>
+          <b><i class="fab fa-discord"></i> Discord de la comunidad</b>
+          <span>Únete a MixWorlds · Servidores, noticias y eventos</span>
         </div>
         <a class="btn" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer">
           Entrar al Discord
@@ -532,34 +703,64 @@
     <div class="divider"></div>
 
     <main class="links" aria-label="Enlaces MixWorlds">
+      <!-- Website oficial -->
       <a class="link gsa" href="https://calendariomixworlds.premiumark.net/page/136000-inicio" target="_blank" rel="noopener noreferrer">
-        <i class="fa-solid fa-globe"></i> Website MixWorlds
-        <span class="meta">Web comunidad</span>
+        <i class="fa-solid fa-globe"></i>
+        <div class="label-box">
+          <span class="title-text">Website MixWorlds</span>
+          <span class="meta">Web comunidad y calendario</span>
+        </div>
+        <span class="badge badge-emerald">WEB</span>
       </a>
 
+      <!-- Wiki -->
       <a class="link wiki" href="https://mixworlds-wiki.gitbook.io/mixworlds-wiki-docs" target="_blank" rel="noopener noreferrer">
-        <i class="fa-solid fa-book-open"></i> Wiki MixWorlds
-        <span class="meta">Guías y normas</span>
+        <i class="fa-solid fa-book-open"></i>
+        <div class="label-box">
+          <span class="title-text">Wiki MixWorlds</span>
+          <span class="meta">Guías oficiales, mods y normas</span>
+        </div>
+        <span class="badge badge-gold">GUÍAS</span>
       </a>
 
+      <!-- Twitch -->
       <a class="link twitch" href="https://twitch.tv/aurinmix" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-twitch"></i> Twitch
-        <span class="meta">Directos frecuentes</span>
+        <i class="fab fa-twitch"></i>
+        <div class="label-box">
+          <span class="title-text">Twitch</span>
+          <span class="meta">Directos frecuentes con la comunidad</span>
+        </div>
+        <span class="badge badge-purple"><i class="fa-solid fa-signal"></i> DIRECTOS</span>
       </a>
 
-      <a class="link youtube" href="https://youtube.com/@aurinmix?si=XBiUp1Ndm1vS163D" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-youtube"></i> YouTube
-        <span class="meta">Vídeos, clips y guías</span>
+      <!-- YouTube -->
+      <a class="link youtube" href="https://youtube.com/@aurinmix" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-youtube"></i>
+        <div class="label-box">
+          <span class="title-text">YouTube</span>
+          <span class="meta">Vídeos, clips, series y guías</span>
+        </div>
+        <span class="badge badge-red">CLIPS</span>
       </a>
 
+      <!-- Twitter / X -->
       <a class="link twitter" href="https://x.com/Aurinmix" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-x-twitter"></i> Twitter (X)
-        <span class="meta">Noticias y avisos</span>
+        <i class="fab fa-x-twitter"></i>
+        <div class="label-box">
+          <span class="title-text">Twitter (X)</span>
+          <span class="meta">Noticias, avisos y anuncios</span>
+        </div>
+        <span class="badge badge-cyan">AVISOS</span>
       </a>
 
+      <!-- TikTok -->
       <a class="link tiktok" href="https://www.tiktok.com/@aurinmix" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-tiktok"></i> TikTok
-        <span class="meta">Shorts y momentos</span>
+        <i class="fab fa-tiktok"></i>
+        <div class="label-box">
+          <span class="title-text">TikTok</span>
+          <span class="meta">Shorts y mejores momentos</span>
+        </div>
+        <span class="badge badge-pink">SHORTS</span>
       </a>
     </main>
 
@@ -569,75 +770,203 @@
 
   </div>
 
+  <!-- Botón flotante Discord -->
   <a class="fab-discord" href="https://discord.gg/QwS5VBW8y3" target="_blank" rel="noopener noreferrer" aria-label="Únete al servidor de Discord de MixWorlds">
     <i class="fab fa-discord"></i> Únete al Discord
   </a>
 
   <script>
-    /* =========================
-       Año dinámico en Footer
-       ========================= */
+    /* ========================================================
+       1. Año dinámico en Footer
+       ======================================================== */
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* =========================
-       Theme toggle
-       ========================= */
-    const body = document.body;
-    const sw = document.getElementById("themeSwitch");
-    const saved = localStorage.getItem("mixworlds-theme");
-
-    if(saved === "dark"){
-      body.setAttribute("data-theme","dark");
-      sw.checked = true;
-    }
+    /* ========================================================
+       2. Selector de tema (Sincronizado con prevención FOUC)
+       ======================================================== */
+    const rootEl = document.documentElement;
+    const themeSw = document.getElementById("themeSwitch");
     
-    sw.addEventListener("change", () => {
-      if(sw.checked){
-        body.setAttribute("data-theme","dark");
-        localStorage.setItem("mixworlds-theme","dark");
-      }else{
-        body.removeAttribute("data-theme");
-        localStorage.setItem("mixworlds-theme","light");
+    // Marcar checkbox según estado inicial
+    if (rootEl.getAttribute("data-theme") === "dark") {
+      themeSw.checked = true;
+    }
+
+    themeSw.addEventListener("change", () => {
+      if (themeSw.checked) {
+        rootEl.setAttribute("data-theme", "dark");
+        document.body.setAttribute("data-theme", "dark");
+        localStorage.setItem("mixworlds-theme", "dark");
+      } else {
+        rootEl.removeAttribute("data-theme");
+        document.body.removeAttribute("data-theme");
+        localStorage.setItem("mixworlds-theme", "light");
       }
     });
 
-    /* =========================
-       Parallax suave (mouse + tilt)
-       ========================= */
-    const maxMove = 18; // px máximo de desplazamiento
-    let targetX = 0, targetY = 0;
-    let currentX = 0, currentY = 0;
+    /* ========================================================
+       3. Efecto 3D Tilt interactivo en los enlaces
+       ======================================================== */
+    const tiltLinks = document.querySelectorAll(".link, .featured");
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    function setTargetFromPointer(x, y){
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const dx = (x / w) - 0.5;
-      const dy = (y / h) - 0.5;
-      targetX = dx * maxMove;
-      targetY = dy * maxMove;
+    if (!isTouch && !reducedMotion) {
+      tiltLinks.forEach(card => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          // Coordenadas para el brillo holográfico
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+
+          // Cálculo de inclinación 3D (máx 6 grados)
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -5.5;
+          const rotateY = ((x - centerX) / centerX) * 5.5;
+
+          card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-2px)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)";
+        });
+      });
     }
 
-    window.addEventListener("mousemove", (e) => {
-      setTargetFromPointer(e.clientX, e.clientY);
-    }, { passive: true });
+    /* ========================================================
+       4. Parallax Suave optimizado (se detiene cuando está quieto)
+       ======================================================== */
+    if (!reducedMotion) {
+      const maxMove = 16;
+      let targetX = 0, targetY = 0;
+      let currentX = 0, currentY = 0;
+      let isAnimating = false;
 
-    // Mobile tilt (si disponible)
-    window.addEventListener("deviceorientation", (e) => {
-      if(e.beta == null || e.gamma == null) return;
-      const tiltX = Math.max(-1, Math.min(1, e.gamma / 30));
-      const tiltY = Math.max(-1, Math.min(1, e.beta / 30));
-      targetX = tiltX * maxMove;
-      targetY = tiltY * maxMove;
-    }, { passive: true });
+      function updatePointer(x, y) {
+        targetX = ((x / window.innerWidth) - 0.5) * maxMove;
+        targetY = ((y / window.innerHeight) - 0.5) * maxMove;
+        if (!isAnimating) {
+          isAnimating = true;
+          requestAnimationFrame(renderParallax);
+        }
+      }
 
-    function animateParallax(){
-      currentX += (targetX - currentX) * 0.06;
-      currentY += (targetY - currentY) * 0.06;
-      body.style.setProperty("--parallax-x", currentX.toFixed(2) + "px");
-      body.style.setProperty("--parallax-y", currentY.toFixed(2) + "px");
-      requestAnimationFrame(animateParallax);
+      window.addEventListener("mousemove", (e) => {
+        updatePointer(e.clientX, e.clientY);
+      }, { passive: true });
+
+      window.addEventListener("deviceorientation", (e) => {
+        if (e.beta == null || e.gamma == null) return;
+        const tiltX = Math.max(-1, Math.min(1, e.gamma / 30));
+        const tiltY = Math.max(-1, Math.min(1, e.beta / 30));
+        targetX = tiltX * maxMove;
+        targetY = tiltY * maxMove;
+        if (!isAnimating) {
+          isAnimating = true;
+          requestAnimationFrame(renderParallax);
+        }
+      }, { passive: true });
+
+      function renderParallax() {
+        const diffX = targetX - currentX;
+        const diffY = targetY - currentY;
+
+        if (Math.abs(diffX) > 0.05 || Math.abs(diffY) > 0.05) {
+          currentX += diffX * 0.07;
+          currentY += diffY * 0.07;
+          document.body.style.setProperty("--parallax-x", currentX.toFixed(2) + "px");
+          document.body.style.setProperty("--parallax-y", currentY.toFixed(2) + "px");
+          requestAnimationFrame(renderParallax);
+        } else {
+          isAnimating = false;
+        }
+      }
     }
-    animateParallax();
+
+    /* ========================================================
+       5. Canvas de Partículas / Esporas de Energía (Gamer FX)
+       ======================================================== */
+    (function initParticles() {
+      if (reducedMotion) return;
+
+      const canvas = document.getElementById("particlesCanvas");
+      const ctx = canvas.getContext("2d");
+      let width, height;
+      let particles = [];
+      const particleCount = window.innerWidth < 600 ? 18 : 34;
+      let animFrameId = null;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize, { passive: true });
+
+      // Generar partículas (colores esmeralda y oro con destellos sutiles)
+      for (let i = 0; i < particleCount; i++) {
+        const isGold = Math.random() > 0.65;
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.8,
+          speedY: Math.random() * 0.35 + 0.15,
+          speedX: (Math.random() - 0.5) * 0.3,
+          color: isGold ? "231, 200, 90" : "0, 230, 168",
+          alpha: Math.random() * 0.45 + 0.15,
+          pulse: Math.random() * 0.02 + 0.005,
+          pulseDir: 1
+        });
+      }
+
+      function drawParticles() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.y -= p.speedY;
+          p.x += p.speedX;
+
+          // Efecto de pulso en opacidad
+          p.alpha += p.pulse * p.pulseDir;
+          if (p.alpha > 0.65) p.pulseDir = -1;
+          if (p.alpha < 0.15) p.pulseDir = 1;
+
+          // Reaparecer al salir de la pantalla
+          if (p.y < -10) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
+          }
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+
+          // Dibujar partícula con halo
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+          ctx.shadowBlur = p.radius * 3.5;
+          ctx.shadowColor = `rgb(${p.color})`;
+          ctx.fill();
+        }
+
+        animFrameId = requestAnimationFrame(drawParticles);
+      }
+
+      // Pausar animación si la pestaña pasa a segundo plano (ahorro de batería)
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          if (animFrameId) cancelAnimationFrame(animFrameId);
+        } else {
+          animFrameId = requestAnimationFrame(drawParticles);
+        }
+      });
+
+      animFrameId = requestAnimationFrame(drawParticles);
+    })();
   </script>
 </body>
 </html>
