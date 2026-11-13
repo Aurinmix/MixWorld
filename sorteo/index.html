@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MixWorlds | Dino Extraction — Sorteo 3D</title>
+  <meta name="description" content="Minijuego 3D de supervivencia para sorteos en directo de MixWorlds conectado con Streamer.bot." />
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./styles.css" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="sceneCanvas"></canvas>
+  <div id="labelsLayer" aria-hidden="true"></div>
+
+  <!-- Barras cinematográficas para Kill-Cam -->
+  <div class="letterbox letterbox-top"></div>
+  <div class="letterbox letterbox-bottom"></div>
+
+  <!-- HUD Superior -->
+  <header class="hud-top">
+    <div class="hud-brand">
+      <div class="brand-row">
+        <img class="brand-logo" src="../assets/logo-mixworlds.png" alt="MixWorlds" />
+        <div>
+          <h1 class="brand-title">DINO EXTRACTION</h1>
+          <div class="brand-sub">MIXWORLDS · CARRERA AL OBELISCO</div>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-pill emerald">
+          <i class="fa-solid fa-paw"></i>
+          <span>Vivos: <b id="hudAlive">0 / 0</b></span>
+        </div>
+        <div class="stat-pill danger">
+          <i class="fa-solid fa-skull"></i>
+          <span>Devorados: <b id="hudDead">0</b></span>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span>SALIDA</span>
+          <span>OBELISCO <b id="hudProgressPct">0%</b></span>
+        </div>
+        <div class="progress-bar">
+          <div id="hudProgressFill" class="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-actions">
+      <div id="sbStatusBadge" class="sb-badge" title="Estado de conexión con Streamer.bot">
+        <span class="sb-dot"></span>
+        <span id="sbStatusText">Streamer.bot: Desconectado</span>
+      </div>
+
+      <button id="btnCamMode" class="btn" type="button" title="Cambiar modo de cámara">
+        <i class="fa-solid fa-video"></i> Director
+      </button>
+
+      <button id="btnMute" class="btn" type="button" title="Silenciar o activar sonido">
+        <i class="fa-solid fa-volume-high"></i> Sonido
+      </button>
+
+      <button id="btnResetRace" class="btn" type="button" title="Reiniciar posiciones">
+        <i class="fa-solid fa-rotate-left"></i>
+      </button>
+
+      <button id="btnTopStart" class="btn btn-primary" type="button">
+        <i class="fa-solid fa-play"></i> Iniciar
+      </button>
+
+      <button id="btnToggleDrawer" class="btn" type="button" title="Abrir o cerrar panel (Tecla Tab)">
+        <i class="fa-solid fa-sliders"></i> Panel
+      </button>
+    </div>
+  </header>
+
+  <!-- Kill-Feed derecha -->
+  <div id="killFeed" aria-live="polite"></div>
+
+  <!-- Banner de Kill-Cam -->
+  <div id="killCamBanner" aria-live="assertive">
+    <div class="kc-tag"><i class="fa-solid fa-crosshairs"></i> KILL-CAM EN DIRECTO</div>
+    <div id="killCamText" class="kc-text">DEPREDADOR ATACA</div>
+  </div>
+
+  <!-- Avisos de nuevos tickets -->
+  <div id="ticketToastContainer"></div>
+
+  <!-- Cuenta atrás -->
+  <div id="countdownOverlay">
+    <div id="countdownText">3</div>
+  </div>
+
+  <!-- Pantalla de Ganador -->
+  <div id="winnerOverlay">
+    <div class="winner-card">
+      <div class="winner-tag"><i class="fa-solid fa-trophy"></i> EXTRACCIÓN COMPLETADA</div>
+      <div id="winnerName" class="winner-name">GANADOR</div>
+      <div id="winnerStats" class="winner-stats"></div>
+      <div class="winner-buttons">
+        <button id="btnWinnerReplay" class="btn btn-primary" type="button">
+          <i class="fa-solid fa-rotate-right"></i> Repetir Carrera
+        </button>
+        <button id="btnWinnerReroll" class="btn btn-gold" type="button">
+          <i class="fa-solid fa-dice"></i> Re-sortear (sin ganador)
+        </button>
+        <button id="btnWinnerOpenPanel" class="btn" type="button">
+          <i class="fa-solid fa-sliders"></i> Panel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel lateral de Streamer (ocúltalo con Tab o usando ?obs=1 en OBS) -->
+  <aside id="controlDrawer" aria-label="Panel de control de sorteo">
+    <div class="drawer-header">
+      <h2><i class="fa-solid fa-dragon"></i> Control MixWorlds</h2>
+      <button id="btnCloseDrawer" class="btn" type="button" style="padding: 5px 9px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- Streamer.bot -->
+      <section class="panel-section">
+        <h3>
+          <span><i class="fa-solid fa-plug"></i> Streamer.bot WebSocket</span>
+        </h3>
+
+        <div class="field-row">
+          <div class="field-col">
+            <label class="field-label" for="inputWsUrl">URL WebSocket</label>
+            <input id="inputWsUrl" type="text" placeholder="ws://127.0.0.1:8080/" />
+          </div>
+          <div class="field-col" style="max-width: 130px;">
+            <label class="field-label" for="inputWsPass">Contraseña (opc.)</label>
+            <input id="inputWsPass" type="password" placeholder="Ninguna" />
+          </div>
+        </div>
+
+        <div class="field-col">
+          <label class="field-label" for="inputRewardName">Nombre exacto de la recompensa Twitch</label>
+          <input id="inputRewardName" type="text" placeholder="ticket sorteo" />
+        </div>
+
+        <label class="toggle-line">
+          <span>Permitir varios tickets por usuario</span>
+          <input id="checkDuplicates" type="checkbox" />
+        </label>
+
+        <div class="field-row">
+          <button id="btnConnectSb" class="btn btn-primary" type="button" style="flex:1; justify-content:center;">
+            <i class="fa-solid fa-plug"></i> Conectar
+          </button>
+          <button id="btnLoadGlobal" class="btn" type="button" title="Lee la variable global 'sorteo_participantes' en Streamer.bot">
+            <i class="fa-solid fa-cloud-arrow-down"></i> Cargar Global
+          </button>
+        </div>
+
+        <div id="sbLogText" class="hint-text">
+          Activa <b>Servers/Clients → WebSocket Server</b> en Streamer.bot (puerto 8080) para recibir los canjes de <b>ticket sorteo</b> automáticamente.
+        </div>
+      </section>
+
+      <!-- Participantes -->
+      <section class="panel-section">
+        <h3>
+          <span><i class="fa-solid fa-users"></i> Participantes</span>
+          <span id="panelParticipantCount" class="stat-pill" style="padding:2px 8px;">0</span>
+        </h3>
+
+        <div class="field-row">
+          <input id="inputManualUser" type="text" placeholder="Añadir usuario manual..." />
+          <button id="btnAddManual" class="btn" type="button">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <textarea id="textareaBulk" placeholder="Pegar lista (uno por línea o separados por comas)..."></textarea>
+        <div class="field-row">
+          <button id="btnImportBulk" class="btn" type="button" style="flex:1; justify-content:center;">
+            <i class="fa-solid fa-file-import"></i> Importar
+          </button>
+          <button id="btnDemo" class="btn btn-gold" type="button" style="flex:1; justify-content:center;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Demo (24)
+          </button>
+          <button id="btnClearList" class="btn btn-danger" type="button" title="Vaciar lista">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+
+        <div id="participantsChips" class="participants-chips"></div>
+      </section>
+
+      <!-- Ajustes de Carrera -->
+      <section class="panel-section">
+        <h3><span><i class="fa-solid fa-skull-crossbones"></i> Depredadores y Cámara</span></h3>
+
+        <div class="field-col">
+          <label class="field-label" for="selectIntensity">Peligro en el valle</label>
+          <select id="selectIntensity">
+            <option value="suave">Suave (4 depredadores)</option>
+            <option value="normal" selected>Normal (6 depredadores)</option>
+            <option value="carniceria">Carnicería (8 depredadores)</option>
+          </select>
+        </div>
+
+        <label class="toggle-line">
+          <span>Kill-Cam automática con cámara lenta</span>
+          <input id="checkKillCam" type="checkbox" checked />
+        </label>
+
+        <div class="hint-text">
+          Tip OBS: abre <code>?obs=1&amp;autoconnect=1</code> en tu Fuente de Navegador para ocultar los botones de control, y controla desde otra pestaña o pulsa <b>Tab</b>.
+        </div>
+      </section>
+    </div>
+
+    <div class="drawer-footer">
+      <button id="btnStartRace" class="btn btn-primary" type="button">
+        <i class="fa-solid fa-flag-checkered"></i> ¡INICIAR CARRERA!
+      </button>
+    </div>
+  </aside>
+
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
